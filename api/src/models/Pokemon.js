@@ -8,5 +8,23 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    live: {
+      type: DataTypes.FLOAT
+    },
+    attack: {
+      type: DataTypes.FLOAT
+    },
+    shield: {
+      type: DataTypes.FLOAT
+    },
+    speed: {
+      type: DataTypes.FLOAT
+    },
+    height: {
+      type: DataTypes.FLOAT    
+    },
+    weight:{
+      type: DataTypes.FLOAT
+    }
   });
 };
