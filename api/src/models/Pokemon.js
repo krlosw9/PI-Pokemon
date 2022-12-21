@@ -7,24 +7,53 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true
     },
     live: {
-      type: DataTypes.FLOAT
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      validate: {
+        isDecimal: true,
+        min: 0
+      }
     },
     attack: {
-      type: DataTypes.FLOAT
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      validate: {
+        isDecimal: true,
+        min: 0
+      }
     },
     shield: {
-      type: DataTypes.FLOAT
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      validate: {
+        isDecimal: true,
+        min: 0
+      }
     },
     speed: {
-      type: DataTypes.FLOAT
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      validate: {
+        isDecimal: true,
+        min: 0
+      }
     },
     height: {
-      type: DataTypes.FLOAT    
+      type: DataTypes.FLOAT,
+      validate: {
+        isDecimal: true,
+        min: 0
+      }
     },
     weight:{
-      type: DataTypes.FLOAT
+      type: DataTypes.FLOAT,
+      validate: {
+        isDecimal: true,
+        min: 0
+      }
     }
   });
 };
