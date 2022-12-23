@@ -6,5 +6,6 @@ const pokemonController = require('../controllers/Pokemon');
 router
   .route('/')
   .get(pokemonController.index)
+  .post(pokemonController.store)
 
 module.exports = router;
