@@ -1,0 +1,10 @@
+.container{
+  margin: 0 auto;
+}
+
+img{
+  width: 90%;
+  max-width: 50rem;
+}
+
+/* .text-wrapper{} */

@@ -1,0 +1,13 @@
+.card{
+  width: 17rem;
+}
+
+.pokemon-image{
+  width: 85%;
+  max-width: 15rem;
+  max-height: 15rem;
+}
+
+p{
+  font-size: 2.5rem;
+}

@@ -4,8 +4,8 @@ const { Pokemon } = require('../db')
 
 async function index(req, res) {
   try {
-    const dbPokemon = await Pokemon.findAll();
-    console.log(dbPokemon[0].dataValues);
+    // const dbPokemon = await Pokemon.findAll();
+    // console.log(dbPokemon[0].dataValues);
 
     const apiResponse = await axios.get('https://pokeapi.co/api/v2/pokemon');
     const pokemons = apiResponse.data.results;
@@ -14,6 +14,7 @@ async function index(req, res) {
 
     const pokemonsInfo = promiseAllpokemons.map( promise => {
       return {
+        id: promise.data.id,
         name: promise.data.name,
         img: promise.data.sprites.other.dream_world.front_default,
         types: promise.data.types,
