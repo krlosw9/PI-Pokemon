@@ -1,5 +1,8 @@
 .card{
   width: 17rem;
+  background-color: lightblue;
+  border-radius: 1rem;
+  margin: 0.5rem;
 }
 
 .pokemon-image{
@@ -8,6 +11,14 @@
   max-height: 15rem;
 }
 
-p{
-  font-size: 2.5rem;
+.pokemonName{
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1rem;
+}
+
+.pokemonType{
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 0.3rem;
 }

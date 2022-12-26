@@ -1,4 +1,5 @@
 export const GET_ALL = 'GET_ALL_POKEMONS';
+export const CLEAR_ALL_POKEMON = 'CLEAR_ALL_POKEMON';
 
 export function getAll() {
   return (dispatch) => {
@@ -6,4 +7,8 @@ export function getAll() {
       .then( res => res.json())
       .then( data => dispatch({type: GET_ALL, payload: data}) )
   }
+}
+
+export function clearAllPokemon() {
+  return (dispatch) => dispatch({type: CLEAR_ALL_POKEMON})
 }
