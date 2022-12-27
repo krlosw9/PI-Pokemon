@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
       allowNull: false,
       unique: true
     },
-    live: {
+    hp: {
       type: DataTypes.FLOAT,
       allowNull: false,
       validate: {
@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
         min: 0
       }
     },
-    shield: {
+    defense: {
       type: DataTypes.FLOAT,
       allowNull: false,
       validate: {
