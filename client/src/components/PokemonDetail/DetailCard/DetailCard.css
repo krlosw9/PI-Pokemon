@@ -1,0 +1,18 @@
+.detail-card{
+  width: 17rem;
+  background-color: lightblue;
+  border-radius: 1rem;
+  margin: 0 auto;
+}
+
+.image{
+  width: 85%;
+  max-width: 15rem;
+  max-height: 15rem;
+}
+
+.name{
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1rem;
+}

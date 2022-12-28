@@ -24,7 +24,7 @@ async function index(req, res) {
     res.json(pokemonsInfo)
     
   } catch (error) {
-    res.status(500).json({error: error.message});
+    res.json({error: error.message});
   }
 };
 
@@ -46,12 +46,12 @@ async function show(req, res) {
             { speed: 45 }
           ] */
           const stats = response.data.stats.map(el => ({[el.stat.name]: el.base_stat}))
-
+          const types = response.data.types.map(type => type.type.name)
           return res.json({
             id: response.data.id,
             name: response.data.name,
             img: response.data.sprites.other.dream_world.front_default,
-            types: response.data.types,
+            types: types,
             height: response.data.height,
             weight: response.data.weight,
             hp: stats[0].hp,
@@ -61,19 +61,32 @@ async function show(req, res) {
             api: true
           })
         })
-        .catch(err => res.status(400).json({error: err.message}))
+        .catch(err => res.json({error: err.message}))
     }else if(destination === 'db'){
       const poke = await Pokemon.findByPk(id, { include: "PokemonTypes" });
-      if(poke) return res.json({...poke.dataValues, api: false})
+      if(poke){
+        const types = poke.dataValues.PokemonTypes.map(type => type.name);
+        return res.json({//
+          id:       poke.dataValues.id,
+          name:     poke.dataValues.name,
+          types:    types,//esta propiedad hace que envie el json describiendo key:value (quiero que la peticion a la api y a la db el resultado tenga las mismas propiedades en el json)
+          height:   poke.dataValues.height,
+          weight:   poke.dataValues.weight,
+          hp:       poke.dataValues.hp,
+          attack:   poke.dataValues.attack,
+          defense:  poke.dataValues.defense,
+          speed:    poke.dataValues.speed,
+          api:      false
+        })
+      } 
       //Si no se encontro pokemon, pasa directamente al throw
       throw new Error('Pokemon no encontrado');
       
     }else{
-      throw new Error('Parametro generado incorrectamente desde el front.')
+      throw new Error('Parametro generado incorrectamente desde el cliente.')
     }
   } catch (error) {
-    res.status(400)
-      .json({error: error.message})
+    res.json({error: error.message})
   }
 }
 
@@ -105,11 +118,11 @@ async function store(req, res) {
       api:false
     });
     
-    poke.addPokemonTypes([type1.id, type2.id]);
+    // poke.addPokemonTypes([type1.id, type2.id]);
 
     return res.status(201).send('Pokemon creado exitosamente');
   } catch (error) {
-    return res.status(400).json({error: error.message})
+    return res.json({error: error.message})
   }
 }
 

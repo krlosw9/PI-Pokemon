@@ -6,8 +6,14 @@ export default function PokemonCard(props) {
   return(
     <div className='container-pokemons'>
       {
-        props.pokemons.map( poke => (         
-            <Card key={poke.id} id={poke.id} img={poke.img} name={poke.name} types={poke.types}/>
+        props.pokemons.map( poke => (
+            <Card 
+              key={poke.id}
+              img={poke.img} 
+              name={poke.name}
+              types={poke.types}
+              id={poke.api ? `api-${poke.id}` : `db-${poke.id}`}
+            />
         ) )
       }
     </div>
