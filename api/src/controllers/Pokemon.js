@@ -94,34 +94,19 @@ async function show(req, res) {
 //Ruta (post) -> /pokemons
 async function store(req, res) {
   try {
-    // const {name, hp, attack, defense, speed} = req.body;
-    // await Pokemon.create({
-    //   name,
-      // hp,
-      // attack,
-      // defense, 
-      // speed,
-      // api: false
-    // });
-    const type1 = await Type.create({
-      name: 'fire'
-    });
-    const type2 = await Type.create({
-      name: 'water'
-    });
-
-    const poke = await Pokemon.create({
-      name: 'firstPokemon',
-      hp: 1.1,
-      attack: 1.2,
-      defense: 1.3, 
-      speed: 1.4,
-      api:false
-    });
+    const {name, types, height, weight, hp, attack, defense, speed} = req.body;
     
-    // poke.addPokemonTypes([type1.id, type2.id]);
+    //Validacion
+    if (!name) throw new Error('Faltan campos obligatorios.');
 
-    return res.status(201).send('Pokemon creado exitosamente');
+    //Registro del pokemon
+    const pokemon = await Pokemon.create({name, height, weight, hp, attack, defense, speed });
+    
+    //Registro de muchos a muchos (Pokemon - Types)
+    pokemon.addPokemonTypes(types);
+    
+    return res.status(201).json({success: true});
+
   } catch (error) {
     return res.json({error: error.message})
   }

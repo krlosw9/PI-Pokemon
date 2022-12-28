@@ -11,7 +11,6 @@ module.exports = (sequelize) => {
     },
     hp: {
       type: DataTypes.FLOAT,
-      allowNull: false,
       validate: {
         isDecimal: true,
         min: 0
@@ -19,7 +18,6 @@ module.exports = (sequelize) => {
     },
     attack: {
       type: DataTypes.FLOAT,
-      allowNull: false,
       validate: {
         isDecimal: true,
         min: 0
@@ -27,7 +25,6 @@ module.exports = (sequelize) => {
     },
     defense: {
       type: DataTypes.FLOAT,
-      allowNull: false,
       validate: {
         isDecimal: true,
         min: 0
@@ -35,7 +32,6 @@ module.exports = (sequelize) => {
     },
     speed: {
       type: DataTypes.FLOAT,
-      allowNull: false,
       validate: {
         isDecimal: true,
         min: 0
