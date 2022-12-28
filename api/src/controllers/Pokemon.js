@@ -64,6 +64,7 @@ async function show(req, res) {
         .catch(err => res.json({error: err.message}))
     }else if(destination === 'db'){
       const poke = await Pokemon.findByPk(id, { include: "PokemonTypes" });
+      
       if(poke){
         const types = poke.dataValues.PokemonTypes.map(type => type.name);
         return res.json({//
