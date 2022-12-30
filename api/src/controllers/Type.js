@@ -1,6 +1,7 @@
 const axios = require('axios');
 const { Type } = require('../db');
 
+//Envia al frontend todos los types, si no tiene registrados type en la base de datos, registra todos los types que tiene la pokeapi
 async function index(req, res) {
   try {
     const types = await Type.findAll();
@@ -24,14 +25,16 @@ async function index(req, res) {
   }
 }
 
+//Guarda el type que el usuario intenta registrar desde el formulario (frontend)PokemonCreate
 async function store(req, res) {
   try {
     const {name} = req.body;
     if(!name) throw new Error('El nombre es requerido.');
 
-    Type.create({name})
-
-    res.status(201).json({success: true})
+    Type.create({name})//Registra el type que el usuario digito
+      .then(() => Type.findAll())//Apenas registre el type, consulta todos los type en base de datos
+      .then(query => res.json(query) )//Retorna todos los type que existen en DB como resultado de registrar el nuevo type
+      .catch(err => res.json({error: err.message}));//Si existe un error lo retorna evitando que rompa el back
   } catch (err) {
     res.json({error: err.message});
   }
