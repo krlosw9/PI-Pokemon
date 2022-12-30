@@ -1,8 +1,13 @@
-import { GET_ALL, CLEAR_ALL_POKEMON, POKEMON_DETAIL, CLEAR_POKEMON_DETAIL } from '../actions/index';
+import { GET_ALL, CLEAR_ALL_POKEMON, POKEMON_DETAIL, 
+          CLEAR_POKEMON_DETAIL, GET_ALL_TYPES, 
+          RESPONSE_TO_REQUEST } 
+from '../actions/index';
 
 const initialState = {
   allPokemon: [],
-  pokemonDetail: {}
+  pokemonDetail: {},
+  allTypes: [],
+  responseToRequest: {}
 }
 
 export default function reducer(state=initialState, action) {
@@ -33,6 +38,17 @@ export default function reducer(state=initialState, action) {
         pokemonDetail: {}
       }
 
+    case GET_ALL_TYPES:
+      return {
+        ...state,
+        allTypes: payload
+      }
+    
+    case RESPONSE_TO_REQUEST: 
+      return {
+        ...state,
+        responseToRequest: payload
+      }
 
     default:
       return state;

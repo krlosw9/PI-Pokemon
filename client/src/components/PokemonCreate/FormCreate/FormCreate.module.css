@@ -1,0 +1,23 @@
+.formContainer{
+  /* display: grid; */
+  /* grid-template-columns: repeat(10, 100px); */
+  margin-top: 2rem;
+
+}
+
+.formGroup{
+  margin-top: 0.5rem;
+}
+
+.successMessage{
+  color: green
+}
+
+.errorMessage{
+  color: rgb(100, 5, 5);
+  font-size: 0.8rem;
+}
+
+.message{
+  font-size: 0.8rem;
+}

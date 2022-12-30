@@ -4,6 +4,7 @@ import Nav from './components/Nav/Nav';
 import Pokemon from './components/Pokemon/Pokemon';
 import Home from './components/Home/Home';
 import PokemonDetail from './components/PokemonDetail/PokemonDetail';
+import PokemonCreate from './components/PokemonCreate/PokemonCreate';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Route path='/' element={<Home/>}/>
         <Route path='/pokemon' element={<Pokemon/>}/>
         <Route path='/pokemon/:id' element={<PokemonDetail/>}/>
-        <Route path='/pokemon/create' element={<Pokemon/>}/>
+        <Route path='/pokemon/create' element={<PokemonCreate/>}/>
       </Routes>
     </div>
   );

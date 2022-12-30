@@ -5,13 +5,13 @@ export default function Nav() {
   return (
     <nav>
       <li>
-        <Link to='/'>Home</Link>
+        <Link to='/'>Inicio</Link>
       </li>
       <li>
         <Link to='/pokemon'>Pokemon</Link>
       </li>
       <li>
-        <Link to='/pokemon/create'>Create</Link>
+        <Link to='/pokemon/create'>Nuevo Pokemon</Link>
       </li>
     </nav>
   )
