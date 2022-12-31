@@ -3,7 +3,6 @@ import style from './FormCreate.module.css';
 import FormType from './FormType/FormType';
 
 export default function FormCreate({ allTypes, registerPokemon, registerType, response }) {
-  const arrayTypes = Object.values(allTypes);
   const inputInitialState = {
     name: '',
     height: 0,
@@ -14,8 +13,8 @@ export default function FormCreate({ allTypes, registerPokemon, registerType, re
     speed: 0
   };
   const [input, setInput] = useState(inputInitialState);
+  const [checked, setChecked] = useState([]);//Se inicializa el array que tendra los id de los Type, cada checkbox checked estara en este array
   const [error, setError] = useState({ name: '' });//Inicializo el estado de error, para que al cargar el componente este desabilitado el boton de submit
-
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.id]: e.target.value })//al estado input le paso todo lo que tenia dentro y lo que el usuario esta tipeando actualmente.
@@ -23,11 +22,38 @@ export default function FormCreate({ allTypes, registerPokemon, registerType, re
     setError(validate({ ...input, [e.target.id]: e.target.value })) //al setError le paso el objeto de errores que me regresa la funcion validate() y a validate le paso el estado input completo.
   }
 
+  //Maneja los cambios en los checkbox
+  const onChange = (id) => {
+    const selectedCheckboxes = checked; //Array temporal, con los id de los type que actualmente estan checked
+
+    const findIdx = selectedCheckboxes.indexOf(id);
+
+    //El id que se recibe por parametro es el id del checkbox que se esta modificando
+    //Index -1 significa que no esta en el array, entonces toca pushearlo
+    // Index > -1 -> si esto ocurre es porque indexOf encontro el id y retorna el index, con este index sacamos del array el id
+    if (findIdx > -1) {
+      selectedCheckboxes.splice(findIdx, 1);
+    } else {
+      selectedCheckboxes.push(id);
+    }
+
+    setChecked(selectedCheckboxes);
+  };
+
+  const isChecked = (id) =>{
+    // console.log("Los types",allTypes," tienen checked: ",checked," y estan: ",checked.includes(id))
+    console.log(`el id: ${id} esta ${checked.includes(id)}`);
+    return checked.includes(id)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    registerPokemon(input);
+console.log("los check activos son: ", checked);
+    registerPokemon({...input, types: checked});//registerPokemon() viene del componente padre y es con esta funcion, con la que despacho la accion de registro de pokemon, le paso un {} con todo el estado de los input y el array de todos los types que el usuario selecciono
     setInput(inputInitialState);//Limpio los input, luego de registrar
+    setTimeout(() => {
+      setChecked([]);//Limpio los checkbox
+    }, 2000)
   }
 
   // Esto evalua si el estado de errores tiene errores, mientras tenga errores, estara desactivado el boton de enviar, (esta funcion retorna true o false)
@@ -60,6 +86,7 @@ export default function FormCreate({ allTypes, registerPokemon, registerType, re
   }
 
   return (
+    
     <div>
       <form className={style.formContainer}>
         <div>
@@ -135,13 +162,26 @@ export default function FormCreate({ allTypes, registerPokemon, registerType, re
           />
           {error.speed && <p className={style.errorMessage}>{error.speed}</p>}
         </div>
-
-        <div className={style.formGroup}>
-          <label htmlFor="types">Tipos:</label>
-          {arrayTypes.map(type => <p key={type.id}>{type.name}</p>)}
+        
+        {/* Checkbox Type */}
+        <div>
+          <p>Tipos de pokemon:</p>
+          {allTypes.map(pokeType => (
+            <div key={pokeType.id}>
+              <label htmlFor={`check-${pokeType.id}`}>
+                {pokeType.name}
+              </label>
+              <input
+                type="checkbox"
+                id={`check-${pokeType.id}`}
+                onChange={() => onChange(pokeType.id)}
+                defaultChecked={isChecked(pokeType.id)}//Includes retorna true o false
+              />
+            </div>
+          ))}
         </div>
       </form>
-      <FormType registerType={registerType}/>
+      <FormType registerType={registerType} />
     </div>
   )
 }
