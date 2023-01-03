@@ -112,8 +112,15 @@ async function store(req, res) {
   }
 }
 
+function image(req, res) {
+  console.log("Estoy por enviar la imagen");
+  
+  // res.sendFile(__dirname + '/store/pokemon.png');
+  res.sendFile(`${__dirname}/store/${req.params.name}`);}
+
 module.exports = {
     index,
     show,
-    store
+    store,
+    image
 }

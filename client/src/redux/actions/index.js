@@ -1,4 +1,4 @@
-const urlBackend = 'http://192.168.0.102:3001';
+const urlBackend = 'http://192.168.0.104:3001';
 export const GET_ALL = 'GET_ALL_POKEMONS';
 export const CLEAR_ALL_POKEMON = 'CLEAR_ALL_POKEMON';
 export const POKEMON_DETAIL = 'POKEMON_DETAIL';
