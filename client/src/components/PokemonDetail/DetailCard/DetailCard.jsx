@@ -6,6 +6,7 @@ export default function DetailCard({pokemon}) {
 
   return (
     <div className='detail-card'>
+      la imagen es {img}
       <figure className='container-image'>
         <img src={img} alt={name} className="image"/>
       </figure>

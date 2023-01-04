@@ -11,9 +11,9 @@ export default function Home() {
   useEffect(()=>{
     if(allPokemon && !allPokemon.length){
       document.title = "Todos los pokemon"; //Cambio el title del tab del navegador
-      dispatch(getAll())
     }
-  });
+    dispatch(getAll())
+  }, [dispatch]);
 
   return (
     <div>

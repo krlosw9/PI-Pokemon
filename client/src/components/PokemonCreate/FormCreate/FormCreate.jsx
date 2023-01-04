@@ -11,7 +11,7 @@ export default function FormCreate({ allTypes, registerPokemon, registerType, re
     attack: 0,
     defense: 0,
     speed: 0,
-    image: ''
+    img: ''
   };
   const [input, setInput] = useState(inputInitialState);
   const [checked, setChecked] = useState([]);//Se inicializa el array que tendra los id de los Type, cada checkbox checked estara en este array
@@ -157,12 +157,12 @@ export default function FormCreate({ allTypes, registerPokemon, registerType, re
         </div>
 
         <div className={style.formGroup}>
-          <label htmlFor="image">Imagen:</label>
-          <input id='image' type="text" name="image"
-            value={input.image}
+          <label htmlFor="imgimage">Imagen:</label>
+          <input id='img' type="text" name="img"
+            value={input.img}
             onChange={(e) => handleChange(e)} placeholder='Url de la imagen'
           />
-          {/* {error.image && <p className={style.errorMessage}>{error.image}</p>} */}
+          {/* {error.img && <p className={style.errorMessage}>{error.img}</p>} */}
         </div>
         
         {/* Checkbox Type */}

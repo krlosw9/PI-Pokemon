@@ -63,6 +63,7 @@ async function show(req, res) {
           attack:   poke.dataValues.attack,
           defense:  poke.dataValues.defense,
           speed:    poke.dataValues.speed,
+          img:      poke.dataValues.img,
           api:      false
         })
       } 
@@ -80,13 +81,13 @@ async function show(req, res) {
 //Ruta (post) -> /pokemons
 async function store(req, res) {
   try {
-    const {name, types, height, weight, hp, attack, defense, speed, image} = req.body;
+    const {name, types, height, weight, hp, attack, defense, speed, img} = req.body;
     
     //Validacion
     if (!name) throw new Error('Faltan campos obligatorios.');
 
     //Registro del pokemon
-    const pokemon = await Pokemon.create({name, height, weight, hp, attack, defense, speed, image });
+    const pokemon = await Pokemon.create({name, height, weight, hp, attack, defense, speed, img });
     
     //Registro de muchos a muchos (Pokemon - Types)
     pokemon.addPokemonTypes(types);
@@ -99,7 +100,7 @@ async function store(req, res) {
 }
 
 function image(req, res) {
-  console.log("Estoy por enviar la imagen");
+  console.log("Estoy por enviar al front la imagen");
   
   // res.sendFile(__dirname + '/store/pokemon.png');
   res.sendFile(`${__dirname}/store/${req.params.name}`);}
