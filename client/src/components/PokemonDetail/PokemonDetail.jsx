@@ -13,7 +13,7 @@ export default function PokemonDetail(props) {
   useEffect(() => {
     dispatch(pokemonDetail(id))
     return dispatch(clearDetailPokemon())
-  },[]);
+  },[dispatch, id]);
 
   if ((pokemonInfo.hasOwnProperty('error') || (Object.keys(pokemonInfo).length === 0))) 
     return <div>No se encontró información detallada del pokemon.</div>

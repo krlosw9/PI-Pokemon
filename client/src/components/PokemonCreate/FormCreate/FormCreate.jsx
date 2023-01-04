@@ -10,7 +10,8 @@ export default function FormCreate({ allTypes, registerPokemon, registerType, re
     hp: 0,
     attack: 0,
     defense: 0,
-    speed: 0
+    speed: 0,
+    image: ''
   };
   const [input, setInput] = useState(inputInitialState);
   const [checked, setChecked] = useState([]);//Se inicializa el array que tendra los id de los Type, cada checkbox checked estara en este array
@@ -41,19 +42,14 @@ export default function FormCreate({ allTypes, registerPokemon, registerType, re
   };
 
   const isChecked = (id) =>{
-    // console.log("Los types",allTypes," tienen checked: ",checked," y estan: ",checked.includes(id))
-    console.log(`el id: ${id} esta ${checked.includes(id)}`);
     return checked.includes(id)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-console.log("los check activos son: ", checked);
+
     registerPokemon({...input, types: checked});//registerPokemon() viene del componente padre y es con esta funcion, con la que despacho la accion de registro de pokemon, le paso un {} con todo el estado de los input y el array de todos los types que el usuario selecciono
     setInput(inputInitialState);//Limpio los input, luego de registrar
-    setTimeout(() => {
-      setChecked([]);//Limpio los checkbox
-    }, 2000)
   }
 
   // Esto evalua si el estado de errores tiene errores, mientras tenga errores, estara desactivado el boton de enviar, (esta funcion retorna true o false)
@@ -95,9 +91,6 @@ console.log("los check activos son: ", checked);
         {Object.keys(response).length > 0 && response.success && <p className={style.successMessage}>Pokemon registrado</p>}
         {Object.keys(response).length > 0 && response.error && <p className={style.errorMessage}>{response.error}</p>}
 
-        {/* <img src="" alt=""/> */}
-        {/* <label htmlFor="">Image: </label>
-        <input type="image"/> */}
         <div>
           <p className={style.message}>Los campos con (*) son obligatorios.</p>
         </div>
@@ -161,6 +154,15 @@ console.log("los check activos son: ", checked);
             onChange={(e) => handleChange(e)} placeholder="Opcional"
           />
           {error.speed && <p className={style.errorMessage}>{error.speed}</p>}
+        </div>
+
+        <div className={style.formGroup}>
+          <label htmlFor="image">Imagen:</label>
+          <input id='image' type="text" name="image"
+            value={input.image}
+            onChange={(e) => handleChange(e)} placeholder='Url de la imagen'
+          />
+          {/* {error.image && <p className={style.errorMessage}>{error.image}</p>} */}
         </div>
         
         {/* Checkbox Type */}

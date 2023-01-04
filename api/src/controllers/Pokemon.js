@@ -1,27 +1,13 @@
 const axios = require('axios');
 const { Pokemon, Type } = require('../db');
+const {getAllPokemon} = require('./utils');
 
 //Ruta principal ->(get)-> /pokemons
 async function index(req, res) {
   try {
-    // const dbPokemon = await Pokemon.findAll();
-    // console.log(dbPokemon[0].dataValues);
-
-    const apiResponse = await axios.get('https://pokeapi.co/api/v2/pokemon');
-    const pokemons = apiResponse.data.results;
-    const promisePokemons = pokemons.map( poke => axios.get(poke.url) );
-    const promiseAllpokemons = await Promise.all(promisePokemons);
-
-    const pokemonsInfo = promiseAllpokemons.map( promise => {
-      return {
-        id: promise.data.id,
-        name: promise.data.name,
-        img: promise.data.sprites.other.dream_world.front_default,
-        types: promise.data.types,
-        api: true
-      }
-    } )
-    res.json(pokemonsInfo)
+    const pokemons = await getAllPokemon();
+    
+    return res.json(pokemons);
     
   } catch (error) {
     res.json({error: error.message});
@@ -94,13 +80,13 @@ async function show(req, res) {
 //Ruta (post) -> /pokemons
 async function store(req, res) {
   try {
-    const {name, types, height, weight, hp, attack, defense, speed} = req.body;
+    const {name, types, height, weight, hp, attack, defense, speed, image} = req.body;
     
     //Validacion
     if (!name) throw new Error('Faltan campos obligatorios.');
 
     //Registro del pokemon
-    const pokemon = await Pokemon.create({name, height, weight, hp, attack, defense, speed });
+    const pokemon = await Pokemon.create({name, height, weight, hp, attack, defense, speed, image });
     
     //Registro de muchos a muchos (Pokemon - Types)
     pokemon.addPokemonTypes(types);

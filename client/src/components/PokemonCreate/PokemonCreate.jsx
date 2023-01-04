@@ -14,7 +14,7 @@ export default function PokemonCreate() {
 
   useEffect(() => {
     dispatch(getAllTypes());
-  },[]);
+  },[dispatch]);
 
   return (
     <FormCreate allTypes={allTypes}

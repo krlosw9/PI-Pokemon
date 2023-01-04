@@ -8,7 +8,7 @@ export default function PokemonCard(props) {
       {
         props.pokemons.map( poke => (
             <Card 
-              key={poke.id}
+              key={poke.api ? `api-${poke.id}` : `db-${poke.id}`}
               img={poke.img} 
               name={poke.name}
               types={poke.types}

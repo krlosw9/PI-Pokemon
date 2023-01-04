@@ -50,6 +50,9 @@ module.exports = (sequelize) => {
         isDecimal: true,
         min: 0
       }
+    },
+    img: {
+      type: DataTypes.TEXT,
     }
   });
 };
