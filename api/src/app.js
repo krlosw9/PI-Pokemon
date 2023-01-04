@@ -32,4 +32,7 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   res.status(status).send(message);
 });
 
+
+server.use('/static', express.static(__dirname + '/store'));
+
 module.exports = server;
