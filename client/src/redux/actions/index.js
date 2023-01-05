@@ -6,6 +6,15 @@ export const CLEAR_POKEMON_DETAIL = 'CLEAR_POKEMON_DETAIL';
 export const GET_ALL_TYPES = 'GET_ALL_TYPES';
 export const RESPONSE_TO_REQUEST = 'RESPONSE_TO_REQUEST';
 
+
+export function searchPokemon(search) {
+  return (dispatch) => (
+    fetch(`${urlBackend}/pokemons/search/${search}`)
+      .then(res => console.log("La respuesta de la busqueda es: ",res))
+    //dispatch( {type:GET_ALL, payload: res} )
+  )
+}
+
 //Busco en el back todos los pokemon
 export function getAll() {
   return (dispatch) => {
