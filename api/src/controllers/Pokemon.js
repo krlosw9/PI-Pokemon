@@ -1,6 +1,5 @@
-const axios = require('axios');
-const { Pokemon, Type } = require('../db');
-const {getAllPokemon} = require('./utils');
+const { Pokemon } = require('../db');
+const {getAllPokemon,getDetailPokemonApi, getDetailPokemonDB} = require('./PokemonUtils');
 
 //Ruta principal ->(get)-> /pokemons
 async function index(req, res) {
@@ -14,61 +13,16 @@ async function index(req, res) {
   }
 };
 
-//Ruta de (get) -> /pokemons/api/:id -> ruta para la informacion detallada del pokemon
+//Ruta de (get) -> /pokemons/:id(api-id or db-id) -> ruta para la informacion detallada del pokemon
 async function show(req, res) {
   try {
     const [destination, id] = req.params.id.split('-');
     
     if (destination === 'api') {
-      axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
-        .then(response => {
-          /*Paso el map() para dar la siguiente estructura a const stats:
-          [
-            { hp: 45 },
-            { attack: 49 },
-            { defense: 49 },
-            { 'special-attack': 65 },
-            { 'special-defense': 65 },
-            { speed: 45 }
-          ] */
-          const stats = response.data.stats.map(el => ({[el.stat.name]: el.base_stat}))
-          const types = response.data.types.map(type => type.type.name)
-          return res.json({
-            id: response.data.id,
-            name: response.data.name,
-            img: response.data.sprites.other.dream_world.front_default,
-            types: types,
-            height: response.data.height,
-            weight: response.data.weight,
-            hp: stats[0].hp,
-            attack: stats[1].attack,
-            defense: stats[2].defense,
-            speed: stats[5].speed,
-            api: true
-          })
-        })
-        .catch(err => res.json({error: err.message}))
-    }else if(destination === 'db'){
-      const poke = await Pokemon.findByPk(id, { include: "PokemonTypes" });
+      return res.json(await getDetailPokemonApi(id));
       
-      if(poke){
-        const types = poke.dataValues.PokemonTypes.map(type => type.name);
-        return res.json({//
-          id:       poke.dataValues.id,
-          name:     poke.dataValues.name,
-          types:    types,//esta propiedad hace que envie el json describiendo key:value (quiero que la peticion a la api y a la db el resultado tenga las mismas propiedades en el json)
-          height:   poke.dataValues.height,
-          weight:   poke.dataValues.weight,
-          hp:       poke.dataValues.hp,
-          attack:   poke.dataValues.attack,
-          defense:  poke.dataValues.defense,
-          speed:    poke.dataValues.speed,
-          img:      poke.dataValues.img,
-          api:      false
-        })
-      } 
-      //Si no se encontro pokemon, pasa directamente al throw
-      throw new Error('Pokemon no encontrado');
+    }else if(destination === 'db'){
+      return res.json(await getDetailPokemonDB(id));
       
     }else{
       throw new Error('Parametro generado incorrectamente desde el cliente.')
