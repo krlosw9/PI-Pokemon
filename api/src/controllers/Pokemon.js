@@ -1,5 +1,6 @@
 const { Pokemon } = require('../db');
-const {getAllPokemon,getDetailPokemonApi, getDetailPokemonDB} = require('./PokemonUtils');
+const {getAllPokemon, searchPokemon, getDetailPokemonApi, 
+      getDetailPokemonDB} = require('./PokemonUtils');
 
 //Ruta principal ->(get)-> /pokemons
 async function index(req, res) {
@@ -12,6 +13,14 @@ async function index(req, res) {
     res.json({error: error.message});
   }
 };
+
+async function search(req, res) {
+  try {
+    return res.json(await searchPokemon(req.params.txtSearch));
+  } catch (err) {
+    res.json([]);//las consultas de searchPokemonDB() y searchPokemonApi() si dan algun error regresan un array vacio para no cortar ejecucion (la query de api no corta a la de base de datos ni viceversa), entonces en el front si llega array vacio, da mensaje de pokemon no encontrado
+  }
+}
 
 //Ruta de (get) -> /pokemons/:id(api-id or db-id) -> ruta para la informacion detallada del pokemon
 async function show(req, res) {
@@ -61,6 +70,7 @@ function image(req, res) {
 
 module.exports = {
     index,
+    search,
     show,
     store,
     image

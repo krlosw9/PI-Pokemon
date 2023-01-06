@@ -1,6 +1,6 @@
 import { GET_ALL, CLEAR_ALL_POKEMON, POKEMON_DETAIL, 
           CLEAR_POKEMON_DETAIL, GET_ALL_TYPES, 
-          RESPONSE_TO_REQUEST } 
+          RESPONSE_TO_REQUEST, CLEAR_RESPONSE_TO_REQUEST } 
 from '../actions/index';
 
 const initialState = {
@@ -48,6 +48,12 @@ export default function reducer(state=initialState, action) {
       return {
         ...state,
         responseToRequest: payload
+      }
+
+    case CLEAR_RESPONSE_TO_REQUEST:
+      return {
+        ...state,
+        responseToRequest: {}
       }
 
     default:

@@ -1,8 +1,12 @@
 import { useState } from 'react';
+import {useDispatch} from "react-redux";
 import style from './FormCreate.module.css';
 import FormType from './FormType/FormType';
+import { createPokemon, clearResponseToReques } from "../../../redux/actions";
 
-export default function FormCreate({ allTypes, registerPokemon, registerType, response }) {
+export default function FormCreate({ allTypes, registerType, response }) {
+  const dispatch = useDispatch();
+
   const inputInitialState = {
     name: '',
     height: 0,
@@ -48,7 +52,7 @@ export default function FormCreate({ allTypes, registerPokemon, registerType, re
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    registerPokemon({...input, types: checked});//registerPokemon() viene del componente padre y es con esta funcion, con la que despacho la accion de registro de pokemon, le paso un {} con todo el estado de los input y el array de todos los types que el usuario selecciono
+    dispatch(createPokemon({...input, types: checked}));
     setInput(inputInitialState);//Limpio los input, luego de registrar
   }
 
@@ -76,6 +80,10 @@ export default function FormCreate({ allTypes, registerPokemon, registerType, re
       errorsValidate.defense = "Solo se permiten numeros, longitud maxima 4 cifras."
     } else if (!expRegNumber.test(objInput.speed)) {
       errorsValidate.speed = "Solo se permiten numeros, longitud maxima 4 cifras."
+    }
+
+    if (Object.keys(response).length > 0) {
+      dispatch(clearResponseToReques());
     }
 
     return errorsValidate;

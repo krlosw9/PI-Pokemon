@@ -55,6 +55,60 @@ const getAllPokemonApi = async() =>{
   return pokemonsInfo;
 }
 
+//*************Metodos utilizados en search del controlador Pokemon*************
+const searchPokemon = async (txtSearch) =>{
+  const pokemonDB = await searchPokemonDB(txtSearch);
+  const pokemonApi = await searchPokemonApi(txtSearch);
+
+  return pokemonDB.concat(pokemonApi);
+}
+
+const searchPokemonApi = (txtSearch) =>{
+  const responseApi = axios(`https://pokeapi.co/api/v2/pokemon/${txtSearch}`)
+    .then(res => {
+      const types = res.data.types.map(pType => pType.type.name); //Le damos formato adecuando a la subconsulta Types
+      return {
+        id: res.data.id,
+        name: res.data.name,
+        img: res.data.sprites.other.dream_world.front_default,
+        types: types,
+        api: true
+      }
+    })
+    .catch(err => []);//Se envia array vacio para que no corte la ejecucion en searchPokemon
+  
+    return responseApi;
+}
+
+const searchPokemonDB = async (txtSearch) => {
+  try {
+    const dbQuery = await Pokemon.findAll({
+      include: "PokemonTypes",  
+      where: {
+        name: txtSearch
+      }
+    });
+    const dbPokemon = dbQuery.map(poke => { //Le damos formato adecuado a la consulta pokemon
+      const types = poke.PokemonTypes.map(type => type.name); //Le damos formato adecuado a la subconsulta Types
+  
+      return {
+        id: poke.id,
+        name: poke.name,
+        img: poke.img,
+        api: false,
+        types: types
+      }
+    });
+
+    return dbPokemon;
+  } catch (err) {
+    return [];//Se envia array vacio para que no corte la ejecucion en searchPokemon
+  }
+
+  
+}
+
+
 //*************Metodos utilizados en show del controlador Pokemon*************
 
 //Este metodo es utilizado desde show en el controlador Pokemon si el parametro es= db-${id}, es usado para que traiga todos los pokemon desde la base de datos
@@ -116,6 +170,7 @@ const getDetailPokemonApi = (id) =>{
 
 module.exports = {
   getAllPokemon,
+  searchPokemon,
   getDetailPokemonApi,
   getDetailPokemonDB
 }

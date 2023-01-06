@@ -5,13 +5,20 @@ export const POKEMON_DETAIL = 'POKEMON_DETAIL';
 export const CLEAR_POKEMON_DETAIL = 'CLEAR_POKEMON_DETAIL';
 export const GET_ALL_TYPES = 'GET_ALL_TYPES';
 export const RESPONSE_TO_REQUEST = 'RESPONSE_TO_REQUEST';
+export const CLEAR_RESPONSE_TO_REQUEST = 'CLEAR_RESPONSE_TO_REQUEST';
 
+export function clearResponseToReques() {
+  return (dispatch) => dispatch({type: CLEAR_RESPONSE_TO_REQUEST})
+}
 
 export function searchPokemon(search) {
   return (dispatch) => (
     fetch(`${urlBackend}/pokemons/search/${search}`)
-      .then(res => console.log("La respuesta de la busqueda es: ",res))
-    //dispatch( {type:GET_ALL, payload: res} )
+      .then(res => res.json())
+      .then(data => {
+        if(data.length < 1) dispatch({type: RESPONSE_TO_REQUEST, payload: {error: "Pokemon no encontrado"}}) //Si el array de data esta vacio, entonces coloca un error en RESPONSE_TO_REQUEST
+        else dispatch( {type:GET_ALL, payload: data} ) //Si el array tiene informacion entonces en el estado allPokemons llenelo
+      })
   )
 }
 

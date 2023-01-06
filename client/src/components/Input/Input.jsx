@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import {useDispatch} from 'react-redux' ;
-import {searchPokemon} from '../../redux/actions';
+import {useDispatch, useSelector} from 'react-redux' ;
+import {searchPokemon, clearResponseToReques} from '../../redux/actions';
 import style from './Input.module.css'
 import '../generalStyles.css';
 
@@ -9,6 +9,7 @@ export default function Input() {
   const [error, setError] = useState('');
 
   const dispatch = useDispatch();
+  const response = useSelector(store => store.responseToRequest)
 
   const handleSubmit = (e) =>{
     e.preventDefault();
@@ -32,6 +33,9 @@ export default function Input() {
     }else{
       setError('');
     }
+    if (response.hasOwnProperty('error')) {
+      dispatch(clearResponseToReques());
+    }
   }
   
   return(
@@ -43,6 +47,7 @@ export default function Input() {
         autoFocus
       />
       {error && <p className='error-message'>{error}</p>}
+      {response.hasOwnProperty('error') && <p className='error-message'>{response.error}</p>}
       <input type="submit" value="Buscar" className={style.btnSearch}/>
     </form>
   )
