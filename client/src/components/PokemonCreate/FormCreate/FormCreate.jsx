@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import style from './FormCreate.module.css';
 import FormType from './FormType/FormType';
-import { createPokemon, clearResponseToReques } from "../../../redux/actions";
+import { createPokemon, clearResponseToReques, createType } from "../../../redux/actions";
 
-export default function FormCreate({ allTypes, registerType, response }) {
+export default function FormCreate() {
   const dispatch = useDispatch();
+  const allTypes = useSelector(store => store.allTypes);
+  const response = useSelector(store => store.responseToRequest)
 
   const inputInitialState = {
     name: '',
@@ -20,6 +22,9 @@ export default function FormCreate({ allTypes, registerType, response }) {
   const [input, setInput] = useState(inputInitialState);
   const [checked, setChecked] = useState([]);//Se inicializa el array que tendra los id de los Type, cada checkbox checked estara en este array
   const [error, setError] = useState({ name: '' });//Inicializo el estado de error, para que al cargar el componente este desabilitado el boton de submit
+
+  //Funciones que se envian a los componentes hijos, para despachar la accion que envia el Post
+  const registerType = (request) => dispatch(createType(request));//
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.id]: e.target.value })//al estado input le paso todo lo que tenia dentro y lo que el usuario esta tipeando actualmente.

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
 import {pokemonDetail, clearDetailPokemon} from '../../redux/actions';
 import DetailCard from './DetailCard/DetailCard';
+import NotFound from '../NotFound/NotFound';
 
 export default function PokemonDetail(props) {
   let { id } = useParams();
@@ -16,7 +17,7 @@ export default function PokemonDetail(props) {
   },[dispatch, id]);
 
   if ((pokemonInfo.hasOwnProperty('error') || (Object.keys(pokemonInfo).length === 0))) 
-    return <div>No se encontró información detallada del pokemon.</div>
+    return <NotFound/>
   
   return(
     <div>

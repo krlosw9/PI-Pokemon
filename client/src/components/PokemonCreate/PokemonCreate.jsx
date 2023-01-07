@@ -1,24 +1,17 @@
 import { useEffect } from "react";
-import {useDispatch, useSelector} from "react-redux";
-import { getAllTypes, createType } from "../../redux/actions";
+import {useDispatch} from "react-redux";
+import { getAllTypes } from "../../redux/actions";
 import FormCreate from './FormCreate/FormCreate';
 
 export default function PokemonCreate() {
   const dispatch = useDispatch();
-  const allTypes = useSelector(store => store.allTypes);
-  const response = useSelector(store => store.responseToRequest)
-
-  //Funciones que se envian a los componentes hijos, para despachar la accion que envia el Post
-  const registerType = (request) => dispatch(createType(request));//
 
   useEffect(() => {
+    document.title = "Nuevo pokemon"; //Cambio el title del tab del navegador
     dispatch(getAllTypes());
   },[dispatch]);
 
   return (
-    <FormCreate allTypes={allTypes}
-      registerType={registerType}
-      response={response}
-    />
+    <FormCreate />
   )
 }
