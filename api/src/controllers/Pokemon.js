@@ -5,7 +5,9 @@ const {getAllPokemon, searchPokemon, getDetailPokemonApi,
 //Ruta principal ->(get)-> /pokemons
 async function index(req, res) {
   try {
-    const pokemons = await getAllPokemon();
+    const page = parseInt(req.query.page);
+
+    const pokemons = await getAllPokemon(page);
     
     return res.json(pokemons);
     

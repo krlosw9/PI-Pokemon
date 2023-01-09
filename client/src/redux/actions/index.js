@@ -23,9 +23,9 @@ export function searchPokemon(search) {
 }
 
 //Busco en el back todos los pokemon
-export function getAll() {
+export function getAll(page=1) {
   return (dispatch) => {
-    fetch(`${urlBackend}/pokemons`)
+    fetch(`${urlBackend}/pokemons/?page=${page}`)
       .then(res => res.json())
       .then(data => dispatch({ type: GET_ALL, payload: data }))
   }
