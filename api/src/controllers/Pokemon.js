@@ -5,9 +5,8 @@ const {getAllPokemon, searchPokemon, getDetailPokemonApi,
 //Ruta principal ->(get)-> /pokemons
 async function index(req, res) {
   try {
-    const page = parseInt(req.query.page);
 
-    const pokemons = await getAllPokemon(page);
+    const pokemons = await getAllPokemon();
     
     return res.json(pokemons);
     
@@ -68,7 +67,8 @@ function image(req, res) {
   console.log("Estoy por enviar al front la imagen");
   
   // res.sendFile(__dirname + '/store/pokemon.png');
-  res.sendFile(`${__dirname}/store/${req.params.name}`);}
+  res.sendFile(`${__dirname}/store/${req.params.name}`);
+}
 
 module.exports = {
     index,
