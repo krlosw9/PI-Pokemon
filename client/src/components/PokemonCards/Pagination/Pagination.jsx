@@ -11,6 +11,9 @@ export default function Pagination(props){
 
   const refreshPokemons = () => dispatch(getAll());
 
+  //esta funcion regresa un boleano que indica si, se desactiva el paginador next
+  const limitPage = () => (page * PAGINATOR_SIZE) >= allPokemons.length;
+
   useEffect(() => {
     if (allPokemons.length) {
       const offset = (page-1) * PAGINATOR_SIZE;
@@ -40,13 +43,8 @@ export default function Pagination(props){
           <button className={style.prev} onClick={handlePrev} 
             disabled={page === 1}>Anterior</ button>
           <p>{page}</p>
-          <button className={style.next} onClick={handleNext}>Siguiente</button>
+          <button className={style.next} onClick={handleNext} disabled={limitPage()}>Siguiente</button>
       </div> 
   )
-      
-        
-        
-        
-        
-  
+ 
 }
