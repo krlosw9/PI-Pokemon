@@ -14,6 +14,7 @@ export default function Input() {
   const handleSubmit = (e) =>{
     e.preventDefault();
     dispatch(searchPokemon(input));
+    setInput('');
   }
 
   const handleChange = (e) =>{
