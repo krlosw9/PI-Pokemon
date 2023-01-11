@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {filterPokemonType} from '../../../redux/actions';
+import {filterPokemonType, filterPokemonApi} from '../../../redux/actions';
 
 export default function Filter() {
   const dispatch = useDispatch();
@@ -7,6 +7,10 @@ export default function Filter() {
 
   const handleFilterPokemonType = (pokemonType) =>{
     dispatch(filterPokemonType(pokemonType));
+  }
+
+  const handleFilterPokemonApi = (api) =>{
+    dispatch(filterPokemonApi(api));
   }
 
   return (
@@ -22,10 +26,10 @@ export default function Filter() {
             }
           </select>
 
-          <select name="" id="">
-            <option value="">¿Pokemon creado o existente?</option>
-            <option value="">Creado</option>
-            <option value="">Existente</option>
+          <select onChange={(e) => handleFilterPokemonApi(e.target.value)}>
+            <option value="sinFiltro">¿Pokemon creado o existente?</option>
+            <option value={false}>Creado</option>{/* Creado es false porque no viene de la api */}
+            <option value={true}>Existente</option> {/* Existente es true porque si viene de la api */}
           </select>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { GET_ALL, CLEAR_ALL_POKEMON, FILTER_POKEMON_TYPE,
-           POKEMON_DETAIL, 
+          FILTER_POKEMON_API, POKEMON_DETAIL, 
           CLEAR_POKEMON_DETAIL, GET_ALL_TYPES, 
           RESPONSE_TO_REQUEST, CLEAR_RESPONSE_TO_REQUEST } 
 from '../actions/index';
@@ -36,6 +36,17 @@ export default function reducer(state=initialState, action) {
       return {
         ...state,
         allPokemon: filtered
+      }
+    
+    case FILTER_POKEMON_API: 
+      let filteredTwo = [];
+
+      payload === 'sinFiltro' 
+        ? filteredTwo = state.allPokemonCopy
+        : filteredTwo = state.allPokemonCopy.filter(poke => poke.api.toString() === payload)
+      return {
+        ...state,
+        allPokemon: filteredTwo
       }
 
     case POKEMON_DETAIL: 

@@ -1,7 +1,8 @@
 const urlBackend = 'http://localhost:3001';
 export const GET_ALL = 'GET_ALL_POKEMONS';
 export const CLEAR_ALL_POKEMON = 'CLEAR_ALL_POKEMON';
-export const FILTER_POKEMON_TYPE='FILTER_POKEMON_TYPE';//filterPokemonType
+export const FILTER_POKEMON_TYPE='FILTER_POKEMON_TYPE';
+export const FILTER_POKEMON_API = 'FILTER_POKEMON_API';//
 export const POKEMON_DETAIL = 'POKEMON_DETAIL';
 export const CLEAR_POKEMON_DETAIL = 'CLEAR_POKEMON_DETAIL';
 export const GET_ALL_TYPES = 'GET_ALL_TYPES';
@@ -38,7 +39,11 @@ export function clearAllPokemon() {
 }
 
 export function filterPokemonType(pokemonType){
-  return (dispatch) => dispatch({type:FILTER_POKEMON_TYPE, payload:pokemonType})
+  return (dispatch) => dispatch({type:FILTER_POKEMON_TYPE, payload: pokemonType})
+}
+// FILTER_POKEMON_CREATED
+export function filterPokemonApi(api) {
+  return (dispatch) => dispatch({type: FILTER_POKEMON_API, payload: api})
 }
 //Trae del back el detalle del pokemon segun id (id puede ser api-1 o  db-1)
 export function pokemonDetail(id) {
