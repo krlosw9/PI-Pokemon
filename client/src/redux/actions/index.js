@@ -1,6 +1,7 @@
 const urlBackend = 'http://localhost:3001';
 export const GET_ALL = 'GET_ALL_POKEMONS';
 export const CLEAR_ALL_POKEMON = 'CLEAR_ALL_POKEMON';
+export const FILTER_POKEMON_TYPE='FILTER_POKEMON_TYPE';//filterPokemonType
 export const POKEMON_DETAIL = 'POKEMON_DETAIL';
 export const CLEAR_POKEMON_DETAIL = 'CLEAR_POKEMON_DETAIL';
 export const GET_ALL_TYPES = 'GET_ALL_TYPES';
@@ -34,6 +35,10 @@ export function getAll(page=1) {
 //Limpio del estado de redux todos los pokemon
 export function clearAllPokemon() {
   return (dispatch) => dispatch({ type: CLEAR_ALL_POKEMON })
+}
+
+export function filterPokemonType(pokemonType){
+  return (dispatch) => dispatch({type:FILTER_POKEMON_TYPE, payload:pokemonType})
 }
 //Trae del back el detalle del pokemon segun id (id puede ser api-1 o  db-1)
 export function pokemonDetail(id) {

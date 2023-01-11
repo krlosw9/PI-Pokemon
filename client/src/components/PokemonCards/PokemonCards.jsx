@@ -1,15 +1,16 @@
-// import {useSelector} from 'react-redux'
 import './PokemonCards.css'
 import Card from './Card/Card';
 import NotFound from '../NotFound/NotFound';
 import Pagination from './Pagination/Pagination';
 import { useState } from 'react';
+import Filter from './Filter/Filter';
 
 export default function PokemonCard() {
   const [paginatedPokemon, setPaginatedPokemon] = useState([]);
-
+  
   return(
     <div>
+      <Filter />
       <div className='container-pokemons'>
         {!paginatedPokemon || !paginatedPokemon.length ? <NotFound/> 
           :  paginatedPokemon.map( poke => (

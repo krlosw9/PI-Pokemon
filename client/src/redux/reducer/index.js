@@ -1,10 +1,12 @@
-import { GET_ALL, CLEAR_ALL_POKEMON, POKEMON_DETAIL, 
+import { GET_ALL, CLEAR_ALL_POKEMON, FILTER_POKEMON_TYPE,
+           POKEMON_DETAIL, 
           CLEAR_POKEMON_DETAIL, GET_ALL_TYPES, 
           RESPONSE_TO_REQUEST, CLEAR_RESPONSE_TO_REQUEST } 
 from '../actions/index';
 
 const initialState = {
   allPokemon: [],
+  allPokemonCopy: [], //allPokemon es modificado cada vez que pasa por un reducer de filter, entonces para la segunda vez que se quiera filtrar, va a filtrar los resultados del primer filter
   pokemonDetail: {},
   allTypes: [],
   responseToRequest: {}
@@ -16,14 +18,24 @@ export default function reducer(state=initialState, action) {
     case GET_ALL:
       return {
         ...state,
-        allPokemon: payload
+        allPokemon: payload,
+        allPokemonCopy: payload
       }
     
     case CLEAR_ALL_POKEMON:
-      console.log("Voy a limpiar (logeando desde el reducer)");
       return {
         ...state,
         allPokemon: []
+      }
+    
+    case FILTER_POKEMON_TYPE:
+      let filtered = [];
+      payload === 'sinFiltro' 
+        ? filtered = state.allPokemonCopy
+        : filtered = state.allPokemonCopy.filter(poke => poke.types.some(type => type === payload))
+      return {
+        ...state,
+        allPokemon: filtered
       }
 
     case POKEMON_DETAIL: 

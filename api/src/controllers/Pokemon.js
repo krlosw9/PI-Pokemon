@@ -45,10 +45,14 @@ async function show(req, res) {
 //Ruta (post) -> /pokemons
 async function store(req, res) {
   try {
-    const {name, types, height, weight, hp, attack, defense, speed, img} = req.body;
-    
+    const {name, types, height, weight, hp, attack, defense, speed, image} = req.body;
+    let img = image;
     //Validacion
     if (!name) throw new Error('Faltan campos obligatorios.');
+
+    //Si el usuario no agrego imagen, entonces nosotros damos una imagen por default
+
+    if (!img) img = 'https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg';
 
     //Registro del pokemon
     const pokemon = await Pokemon.create({name, height, weight, hp, attack, defense, speed, img });
