@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import {filterPokemonType, filterPokemonApi, orderByName, orderByAttack} 
   from '../../../redux/actions';
+import style from './Filter.module.css';
 
 export default function Filter() {
   const dispatch = useDispatch();
@@ -13,11 +14,11 @@ export default function Filter() {
   const handleOrderByAttack = (orientation) => dispatch(orderByAttack(orientation));
 
   return (
-    <div>
+    <div className={style.mainContainer}>
       <div>
         <p>Filtrar por:</p>
 
-        <div>
+        <div className={style.filterSelect}>
           <select onChange={(e) => handleFilterPokemonType(e.target.value)}>
             <option value='sinFiltro'>Tipo de pokemon</option>
             {
@@ -36,7 +37,7 @@ export default function Filter() {
       <div>
         <p>Ordenar por:</p>
 
-        <div>
+        <div className={style.orderSelect}>
           <select onChange={(e) => handleOrderByName(e.target.value)}>
           <option value="sinFiltro">Nombre</option>
             <option value="up">Nombre A-Z</option>

@@ -1,0 +1,14 @@
+.mainContainer{
+  margin: 1rem auto;
+}
+
+.mainContainer :is(select){
+  border: none;
+  background-color: transparent;
+}
+
+.mainContainer :is(.filterSelect, .orderSelect){
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

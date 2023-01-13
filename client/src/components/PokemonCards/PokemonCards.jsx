@@ -1,4 +1,4 @@
-import './PokemonCards.css'
+import style from './PokemonCards.module.css'
 import Card from './Card/Card';
 import NotFound from '../NotFound/NotFound';
 import Pagination from './Pagination/Pagination';
@@ -9,12 +9,12 @@ export default function PokemonCard() {
   const [paginatedPokemon, setPaginatedPokemon] = useState([]);
   
   return(
-    <div>
+    <div className={style.mainContainer}>
       <Filter />
-      <div className='container-pokemons'>
+      <div className={style.containerCards}>
         {!paginatedPokemon || !paginatedPokemon.length ? <NotFound/> 
           :  paginatedPokemon.map( poke => (
-              <Card 
+              <Card
                 key={poke.api ? `api-${poke.id}` : `db-${poke.id}`}
                 img={poke.img} 
                 name={poke.name}

@@ -1,0 +1,18 @@
+.mainContainer{
+  width: 95%;
+  margin: 0 auto;
+}
+.containerCards{
+  justify-items: center;
+  display: grid;
+  grid-gap: 40px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.containerCards :is(a){
+  background-color: rgb(217, 239, 247);
+  border-radius: 1rem;
+  min-width: 17rem;
+  padding: 1rem 0;
+  color: rgb(75, 73, 73);
+}
