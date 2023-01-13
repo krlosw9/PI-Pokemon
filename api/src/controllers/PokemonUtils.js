@@ -26,6 +26,7 @@ const getAllPokemonDB = async() =>{
       id: poke.id,
       name: poke.name,
       img: poke.img,
+      attack: poke.attack,
       api: false,
       types: types
     }
@@ -48,6 +49,7 @@ const getAllPokemonApi = async() =>{
       id: promise.data.id,
       name: promise.data.name,
       img: promise.data.sprites.other.dream_world.front_default,
+      attack: promise.data.stats[1].base_stat,
       types: types,
       api: true
     }

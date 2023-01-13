@@ -3,6 +3,8 @@ export const GET_ALL = 'GET_ALL_POKEMONS';
 export const CLEAR_ALL_POKEMON = 'CLEAR_ALL_POKEMON';
 export const FILTER_POKEMON_TYPE='FILTER_POKEMON_TYPE';
 export const FILTER_POKEMON_API = 'FILTER_POKEMON_API';//
+export const ORDER_BY_NAME = 'ORDER_BY_NAME';
+export const ORDER_BY_ATTACK = 'ORDER_BY_ATTACK';
 export const POKEMON_DETAIL = 'POKEMON_DETAIL';
 export const CLEAR_POKEMON_DETAIL = 'CLEAR_POKEMON_DETAIL';
 export const GET_ALL_TYPES = 'GET_ALL_TYPES';
@@ -38,12 +40,23 @@ export function clearAllPokemon() {
   return (dispatch) => dispatch({ type: CLEAR_ALL_POKEMON })
 }
 
+//Filtra los pokemon por tipo de pokemon
 export function filterPokemonType(pokemonType){
   return (dispatch) => dispatch({type:FILTER_POKEMON_TYPE, payload: pokemonType})
 }
-// FILTER_POKEMON_CREATED
+//Filtra los pokemon, si son creados desde el formulario o son de la api (ya existentes)
 export function filterPokemonApi(api) {
   return (dispatch) => dispatch({type: FILTER_POKEMON_API, payload: api})
+}
+
+//Ordena en sentido ascendente o descendente respecto al nombre del pokemon
+export function orderByName(orientation) {
+  return (dispatch) => dispatch({type: ORDER_BY_NAME, payload:orientation})
+}
+
+//Ordena en sentido ascendente o descendente respecto al ataque del pokemon
+export function orderByAttack(orientation) {
+  return (dispatch) => dispatch({type: ORDER_BY_ATTACK, payload:orientation})
 }
 //Trae del back el detalle del pokemon segun id (id puede ser api-1 o  db-1)
 export function pokemonDetail(id) {

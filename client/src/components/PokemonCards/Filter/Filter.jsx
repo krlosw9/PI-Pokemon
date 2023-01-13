@@ -1,17 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
-import {filterPokemonType, filterPokemonApi} from '../../../redux/actions';
+import {filterPokemonType, filterPokemonApi, orderByName, orderByAttack} 
+  from '../../../redux/actions';
 
 export default function Filter() {
   const dispatch = useDispatch();
   const allTypes = useSelector(store => store.allTypes);
 
-  const handleFilterPokemonType = (pokemonType) =>{
-    dispatch(filterPokemonType(pokemonType));
-  }
-
-  const handleFilterPokemonApi = (api) =>{
-    dispatch(filterPokemonApi(api));
-  }
+  //Funciones que despachan el filtro o orden
+  const handleFilterPokemonType = (pokemonType) => dispatch(filterPokemonType(pokemonType));
+  const handleFilterPokemonApi = (api) => dispatch(filterPokemonApi(api));
+  const handleOrderByName = (orientation) => dispatch(orderByName(orientation));
+  const handleOrderByAttack = (orientation) => dispatch(orderByAttack(orientation));
 
   return (
     <div>
@@ -38,14 +37,16 @@ export default function Filter() {
         <p>Ordenar por:</p>
 
         <div>
-          <select>
-            <option value="up">Nombre ascendente</option>
-            <option value="down">nombre descendente</option>
+          <select onChange={(e) => handleOrderByName(e.target.value)}>
+          <option value="sinFiltro">Nombre</option>
+            <option value="up">Nombre A-Z</option>
+            <option value="down">Nombre Z-A</option>
           </select>
 
-          <select name="" id="">
-            <option value="">Ataque ascendente</option>
-            <option value="">Ataque descendente</option>
+          <select onChange={(e) => handleOrderByAttack(e.target.value)}>
+            <option value="sinFiltro">Ataque</option>
+            <option value="up">Ataque ascendente</option>
+            <option value="down">Ataque descendente</option>
           </select>
         </div>
       </div>

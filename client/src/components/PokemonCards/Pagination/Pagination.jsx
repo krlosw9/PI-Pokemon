@@ -13,7 +13,7 @@ export default function Pagination(props){
 
   //esta funcion regresa un boleano que indica si, se desactiva el paginador next
   const limitPage = () => (page * PAGINATOR_SIZE) >= allPokemons.length;
-
+  
   useEffect(() => {
     if (allPokemons.length) {
       if (allPokemons.length < PAGINATOR_SIZE && page > 1) {
@@ -23,6 +23,7 @@ export default function Pagination(props){
       const offset = (page-1) * PAGINATOR_SIZE;
       const limit = offset + PAGINATOR_SIZE;
       //Enviamos al componente PokemonCards una copia de allPokemons, esta copia tiene la cantidad de PAGINATOR_SIZE, y va desde el pokemon en la posicion en offset hasta uno antes de limit
+      
       props.setPaginatedPokemon(allPokemons.slice(offset, limit));
     }else{
       props.setPaginatedPokemon([]);//Si algun filtro da un array vacio, entonces PokemonCards debe resolver ese array vacio
@@ -41,7 +42,7 @@ export default function Pagination(props){
     //Esto es para que no salga el paginador cuando se hace la busqueda de pokemon por el componente Input
     allPokemons.length < PAGINATOR_SIZE 
       ?
-        <div><button onClick={refreshPokemons}>Regresar</button></div>
+        <div><button onClick={() => refreshPokemons()}>Regresar</button></div>
       : 
 
       <div>
